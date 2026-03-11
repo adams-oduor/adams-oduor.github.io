@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Adams Oduor — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --ink:     #0A1628;
+  --gold:    #C9A84C;
+  --gold2:   #E8C97A;
+  --cream:   #F5F0E8;
+  --slate:   #4A5568;
+  --mist:    #8A9BB0;
+  --white:   #FFFFFF;
+  --card-bg: #FDFAF5;
+  --tag-bg:  #F0E8D4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+
+
+/* ── REVEAL — visible by default, animated when JS loads ── */
+.reveal { opacity: 1; transform: none; }
+.js-ready .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.js-ready .reveal.visible { opacity: 1; transform: none; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--ink);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 6vw 8vh;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.hero-glow {
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-scroll-line {
+  position: absolute;
+  bottom: 0; left: 6vw;
+  width: 1px; height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+  opacity: 0.6;
+}
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 9vw, 130px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+  position: relative; z-index: 1;
+}
+.hero-name em { color: var(--gold); font-style: italic; }
+.hero-title {
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 300;
+  color: #A0B4C8;
+  letter-spacing: 0.03em;
+  margin-bottom: 48px;
+  max-width: 600px;
+  position: relative; z-index: 1;
+}
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+  position: relative; z-index: 1;
+}
+.stat { border-left: 2px solid var(--gold); padding-left: 16px; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-top: 4px;
+}
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.cta-primary {
+  background: var(--gold);
+  color: var(--ink);
+  padding: 13px 32px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.25s;
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+}
+.cta-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+.cta-secondary {
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  padding: 13px 32px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.25s;
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+}
+.cta-secondary:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,22,40,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 0 6vw;
+  display: flex;
+  align-items: center;
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  padding: 16px 0;
+  margin-right: auto;
+  text-decoration: none;
+}
+.nav-links { display: flex; list-style: none; }
+.nav-links a {
+  display: block;
+  padding: 20px 16px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.2s;
+  border-bottom: 2px solid transparent;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ── SECTIONS ── */
+section { padding: 100px 6vw; }
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.section-title em { color: var(--gold); font-style: italic; }
+.section-rule { width: 60px; height: 2px; background: var(--gold); margin-bottom: 48px; }
+
+/* ── ABOUT ── */
+#about { background: var(--white); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-text p { font-size: 16px; color: var(--slate); line-height: 1.85; margin-bottom: 20px; }
+.about-text p:last-child { margin-bottom: 0; }
+.skills-block { margin-bottom: 32px; }
+.skills-block-title {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  background: var(--tag-bg);
+  color: var(--slate);
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 2px;
+}
+
+/* ── PROJECT CARDS ── */
+#projects { background: var(--cream); }
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 28px;
+}
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 3px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.project-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.project-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(10,22,40,0.1); border-color: rgba(201,168,76,0.35); }
+.project-card:hover::before { transform: scaleX(1); }
+.card-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300;
+  color: rgba(201,168,76,0.18);
+  line-height: 1; margin-bottom: 8px;
+}
+.card-category {
+  font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 12px; font-weight: 500;
+}
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--ink); line-height: 1.3; margin-bottom: 16px;
+}
+.card-desc { font-size: 14px; color: var(--slate); line-height: 1.75; margin-bottom: 24px; }
+.card-impact {
+  background: rgba(201,168,76,0.08);
+  border-left: 3px solid var(--gold);
+  padding: 10px 14px;
+  font-size: 13px; color: var(--ink); font-weight: 500;
+  border-radius: 0 2px 2px 0; margin-bottom: 20px;
+}
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.card-tag { background: var(--tag-bg); color: var(--slate); font-size: 11px; padding: 3px 10px; border-radius: 2px; }
+
+/* ── ACHIEVEMENTS ── */
+#achievements { background: var(--ink); }
+#achievements .section-title { color: var(--white); }
+#achievements .section-label { color: var(--gold2); }
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.achievement-item {
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 28px; border-radius: 2px;
+  background: rgba(255,255,255,0.03);
+  transition: background 0.2s, border-color 0.2s;
+}
+.achievement-item:hover { background: rgba(201,168,76,0.06); border-color: rgba(201,168,76,0.4); }
+.ach-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+.ach-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--white); margin-bottom: 8px; line-height: 1.3;
+}
+.ach-desc { font-size: 13px; color: #7A90A8; line-height: 1.65; }
+
+/* ── TIMELINE ── */
+#experience { background: var(--white); }
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before {
+  content: '';
+  position: absolute; top: 8px; left: 7px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+.timeline-item { position: relative; margin-bottom: 56px; }
+.timeline-item::before {
+  content: '';
+  position: absolute; left: -28px; top: 8px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--cream);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+}
+.tl-period { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; font-weight: 500; }
+.tl-role { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.tl-company { font-size: 14px; color: var(--mist); margin-bottom: 12px; }
+.tl-desc { font-size: 14px; color: var(--slate); line-height: 1.75; max-width: 680px; }
+
+/* ── SKILLS ── */
+#skills { background: var(--cream); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.skill-category { background: var(--white); padding: 28px; border-radius: 3px; border: 1px solid rgba(201,168,76,0.12); }
+.skill-cat-title { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; font-weight: 500; }
+.skill-list { list-style: none; }
+.skill-list li { font-size: 13px; color: var(--slate); padding: 5px 0; border-bottom: 1px solid rgba(201,168,76,0.08); display: flex; align-items: center; gap: 8px; }
+.skill-list li::before { content: '—'; color: var(--gold); font-size: 10px; flex-shrink: 0; }
+.skill-list li:last-child { border-bottom: none; }
+
+/* ── CONTACT ── */
+#contact { background: var(--ink); text-align: center; padding: 120px 6vw; }
+#contact .section-label { color: var(--gold2); }
+#contact .section-title { color: var(--white); }
+#contact .section-rule { margin: 0 auto 40px; }
+.contact-sub { font-size: 16px; color: #7A90A8; max-width: 500px; margin: 0 auto 56px; line-height: 1.7; }
+.contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.contact-link {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--gold); text-decoration: none;
+  font-size: 14px; letter-spacing: 0.05em;
+  padding: 12px 24px;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+.contact-link:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+
+/* ── FOOTER ── */
+footer {
+  background: #060D18;
+  padding: 28px 6vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #3A4E62;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-stats { gap: 28px; }
+  nav .nav-links { display: none; }
+  section { padding: 72px 5vw; }
+}
+</style>
+</head>
+<body>
+
+
+
+<!-- Nav -->
+<nav>
+  <a href="#home" class="nav-brand">Adams Oduor</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-scroll-line"></div>
+  <p class="hero-label">Technology Talent Acquisition Lead &middot; Nairobi</p>
+  <h1 class="hero-name">Adams<br><em>Oduor</em></h1>
+  <p class="hero-title">Pan-African tech recruiter driving AI-augmented hiring, recruitment automation, and talent operations excellence across 6 African markets and Europe.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat"><div class="stat-num">$250K</div><div class="stat-label">Agency Cost Saved</div></div>
+    <div class="stat"><div class="stat-num">80%</div><div class="stat-label">Candidate NPS</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Engineers Hired</div></div>
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Market High-Volume Roles</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">African Markets</div></div>
+  </div>
+  <div class="hero-ctas">
+    <a href="#projects" class="cta-primary">View Projects</a>
+    <a href="mailto:adamsepp@outlook.com" class="cta-secondary">Get In Touch</a>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Building <em>equitable</em><br>talent systems</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a Technology Talent Acquisition Lead with 4+ years of experience. Currently at M-KOPA &mdash; a pan-African fintech operating across Kenya, Uganda, Ghana, Nigeria, South Africa, and the UK. I lead full-cycle recruitment for Technology, Product, Credit, and E-Mobility functions while simultaneously serving as Ashby ATS Systems Administrator.</p>
+      <p>My work sits at the intersection of people strategy and systems thinking. I've built automation workflows, AI-augmented screening frameworks, and recruitment tooling that make hiring faster, fairer, and more scalable — not just for M-KOPA, but as open models for the wider African tech ecosystem.</p>
+      <p>Outside of work, I'm a skater, poet, and artist. I believe the same creative instincts that fuel great art make for more human, more memorable recruitment experiences.</p>
+    </div>
+    <div class="about-sidebar reveal">
+      <div class="skills-block">
+        <p class="skills-block-title">Core Disciplines</p>
+        <div class="tags">
+          <span class="tag">Technical Recruitment</span>
+          <span class="tag">Recruitment Automation</span>
+          <span class="tag">ATS Administration</span>
+          <span class="tag">AI-Augmented Hiring</span>
+          <span class="tag">Employer Branding</span>
+          <span class="tag">D&amp;I Hiring</span>
+          <span class="tag">Process Improvement</span>
+          <span class="tag">Candidate Experience</span>
+        </div>
+      </div>
+      <div class="skills-block">
+        <p class="skills-block-title">Currently</p>
+        <div class="tags">
+          <span class="tag">MBA — In Progress</span>
+          <span class="tag">Notion AI UAT Lead</span>
+          <span class="tag">Licensed Talent Advisor</span>
+          <span class="tag">LinkedIn Champion</span>
+        </div>
+      </div>
+      <div class="skills-block">
+        <p class="skills-block-title">Markets</p>
+        <div class="tags">
+          <span class="tag">Kenya</span>
+          <span class="tag">Nigeria</span>
+          <span class="tag">Uganda</span>
+          <span class="tag">Ghana</span>
+          <span class="tag">South Africa</span>
+          <span class="tag">UK</span>
+          <span class="tag">Europe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="reveal">
+    <p class="section-label">Selected Work</p>
+    <h2 class="section-title">Projects &amp;<br><em>Initiatives</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="card-number">01</div>
+      <p class="card-category">Automation &middot; Systems</p>
+      <h3 class="card-title">Recruitment Process Automation (Power Automate)</h3>
+      <p class="card-desc">Architected and delivered a cross-market workflow replacing M-KOPA's manual email-based job requisition system with a fully automated Power Automate / SharePoint / Microsoft Teams / Ashby pipeline — rolled out across all 6 African markets and global Tech &amp; Product functions.</p>
+      <div class="card-impact">&#8593; Eliminated manual intake errors &middot; Scaled across 6 markets</div>
+      <div class="card-tags">
+        <span class="card-tag">Power Automate</span>
+        <span class="card-tag">SharePoint</span>
+        <span class="card-tag">Ashby</span>
+        <span class="card-tag">MS Teams</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="card-number">02</div>
+      <p class="card-category">AI &middot; Screening</p>
+      <h3 class="card-title">Ubuntu Scaling Assessment Framework (USAF)</h3>
+      <p class="card-desc">Designed and deployed an AI-augmented, EEO-compliant resume screening framework inside Ashby. The USAF uses structured prompts to produce bias-mitigated, paragraph-format candidate assessments — accelerating shortlisting at high volume without sacrificing quality or fairness.</p>
+      <div class="card-impact">&#8593; Reduced shortlisting time &middot; EEO-compliant by design</div>
+      <div class="card-tags">
+        <span class="card-tag">AI Prompting</span>
+        <span class="card-tag">Ashby ATS</span>
+        <span class="card-tag">EEO Compliance</span>
+        <span class="card-tag">D&amp;I</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="card-number">03</div>
+      <p class="card-category">HRIS &middot; Integration</p>
+      <h3 class="card-title">Ashby&ndash;HiBob Contract Automation Integration</h3>
+      <p class="card-desc">Managed and optimized the Ashby&ndash;HiBob HRIS integration for automated contract drafting and multi-market document collection across all M-KOPA markets.</p>
+      <div class="card-impact">&#8593; Streamlined contract workflows across all markets</div>
+      <div class="card-tags">
+        <span class="card-tag">HiBob</span>
+        <span class="card-tag">Ashby</span>
+        <span class="card-tag">DocuSign</span>
+        <span class="card-tag">Systems Integration</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="card-number">04</div>
+      <p class="card-category">AI &middot; Knowledge Management</p>
+      <h3 class="card-title">Notion AI Assistant &mdash; UAT &amp; Rollout</h3>
+      <p class="card-desc">Led the User Acceptance Testing phase for M-KOPA's Notion AI Assistant — building post-UAT survey infrastructure, rollback procedures, and exploring a Microsoft Teams-to-Notion AI agent architecture to enable company-wide access across all departments and markets.</p>
+      <div class="card-impact">&#8593; Structured AI adoption framework for the enterprise</div>
+      <div class="card-tags">
+        <span class="card-tag">Notion AI</span>
+        <span class="card-tag">UAT</span>
+        <span class="card-tag">MS Teams</span>
+        <span class="card-tag">Change Management</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="card-number">05</div>
+      <p class="card-category">Employer Branding &middot; Equity</p>
+      <h3 class="card-title">Candidate-First Resume Writing Resource</h3>
+      <p class="card-desc">Launched a publicly accessible resume writing resource embedded on M-KOPA's careers page — framed around candidate empowerment and equity across African talent markets. Built to lower barriers for candidates who lack access to professional resume coaching.</p>
+      <div class="card-impact">&#8593; Publicly accessible &middot; Equity-first design</div>
+      <div class="card-tags">
+        <span class="card-tag">Employer Branding</span>
+        <span class="card-tag">Candidate Experience</span>
+        <span class="card-tag">Equity</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="card-number">06</div>
+      <p class="card-category">Branding &middot; Marketing</p>
+      <h3 class="card-title">Visual Job Ad Redesign</h3>
+      <p class="card-desc">Designed and championed a new visually engaging job ad format that tells M-KOPA's story and increases candidate reach. What began as a personal initiative was formally adopted by the Marketing team as the standard template for M-KOPA's new website.</p>
+      <div class="card-impact">&#8593; Adopted as company-wide standard by Marketing</div>
+      <div class="card-tags">
+        <span class="card-tag">Employer Branding</span>
+        <span class="card-tag">Copywriting</span>
+        <span class="card-tag">Visual Design</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="card-number">07</div>
+      <p class="card-category">Operations &middot; Strategy</p>
+      <h3 class="card-title">Onboarding Schedule Modernization Proposal</h3>
+      <p class="card-desc">Developed and presented a data-backed proposal to shift M-KOPA's onboarding model from twice-monthly Tuesday starts to a "first week of the month" framework &mdash; supported by hiring data analysis across job bands.</p>
+      <div class="card-impact">&#8593; Evidence-based &middot; Operational efficiency gain</div>
+      <div class="card-tags">
+        <span class="card-tag">Data Analysis</span>
+        <span class="card-tag">Process Design</span>
+        <span class="card-tag">Stakeholder Management</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="card-number">08</div>
+      <p class="card-category">D&amp;I &middot; Senior Hiring</p>
+      <h3 class="card-title">Diversity-First Tech Leadership Hiring</h3>
+      <p class="card-desc">Drove targeted D&amp;I hiring outcomes across European and African tech functions — successfully placing M-KOPA's first female and Africa-based Software Engineering Team Lead and Data Science Lead, while delivering senior hiring across 9 European countries.</p>
+      <div class="card-impact">&#8593; First female SE Team Lead &middot; First African DS Lead</div>
+      <div class="card-tags">
+        <span class="card-tag">D&amp;I</span>
+        <span class="card-tag">Senior Hiring</span>
+        <span class="card-tag">EMEA Recruitment</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Achievements -->
+<section id="achievements">
+  <div class="reveal">
+    <p class="section-label">Impact</p>
+    <h2 class="section-title">Key <em>Achievements</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="achievements-grid">
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#128176;</span>
+      <h4 class="ach-title">$250,000 Agency Cost Reduction</h4>
+      <p class="ach-desc">Reduced M-KOPA's agency spend by $250K in 2024 through full-cycle in-house hiring of Tech employees including Senior Engineers, Team Leads, and Departmental Heads.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#11088;</span>
+      <h4 class="ach-title">80% Candidate Net Promoter Score</h4>
+      <p class="ach-desc">Achieved an NPS of 80% against a company target of 65% — significantly above the global recruitment average of 30&ndash;40% — by championing the candidate experience.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#128101;</span>
+      <h4 class="ach-title">40+ Engineers Placed</h4>
+      <p class="ach-desc">Hired and onboarded 40+ Engineers including Team Leads, SREs, Backend, Frontend, Analytics Engineers and Data Scientists across Europe, UK and Africa.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#128200;</span>
+      <h4 class="ach-title">200+ High-Volume Market Roles</h4>
+      <p class="ach-desc">Delivered 200+ in-market high-volume hires across Commercial Sales, Retail, Customer Service, and Logistics functions spanning multiple African markets.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#127758;</span>
+      <h4 class="ach-title">70% Localization Rate</h4>
+      <p class="ach-desc">Achieved 70% candidate localization in Kenya through targeted recruitment marketing strategies &mdash; with zero agency cost.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#129302;</span>
+      <h4 class="ach-title">AI-Augmented Screening in Production</h4>
+      <p class="ach-desc">Built and deployed the Ubuntu Scaling Assessment Framework &mdash; an EEO-compliant AI resume screening system in Ashby &mdash; accelerating high-volume shortlisting across all tech functions.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#9889;</span>
+      <h4 class="ach-title">Cross-Market Automation Rollout</h4>
+      <p class="ach-desc">Replaced manual email-based recruitment processes with an integrated Power Automate / SharePoint / Teams / Ashby workflow deployed across 6 markets.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#9792;</span>
+      <h4 class="ach-title">D&amp;I Milestones</h4>
+      <p class="ach-desc">Placed M-KOPA's first female and Africa-based Software Engineering Team Lead and Data Science Lead in their respective roles.</p>
+    </div>
+    <div class="achievement-item reveal">
+      <span class="ach-icon">&#127919;</span>
+      <h4 class="ach-title">100% BBSI Compliance</h4>
+      <p class="ach-desc">Ensured 100% compliance with M-KOPA global recruitment processes and drove company-wide adoption of Behaviour-Based Structured Interviews.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="reveal">
+    <p class="section-label">Career</p>
+    <h2 class="section-title">Employment<br><em>History</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <p class="tl-period">Oct 2024 &mdash; Present</p>
+      <h3 class="tl-role">Technology Talent Acquisition Lead</h3>
+      <p class="tl-company">M-KOPA UK Limited &middot; Nairobi, Kenya (Remote-first)</p>
+      <p class="tl-desc">Lead full-cycle recruitment for Technology, Product, Credit, and E-Mobility functions across 6 African markets and Europe. Serve as Ashby ATS Systems Administrator, driving automation, AI-augmented screening, and HRIS integration projects. Mentor junior recruiters and partner with senior leadership on hiring strategy.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <p class="tl-period">May 2024 &mdash; Oct 2024</p>
+      <h3 class="tl-role">Technology Talent Acquisition Associate</h3>
+      <p class="tl-company">M-KOPA UK Limited &middot; Nairobi, Kenya</p>
+      <p class="tl-desc">Delivered complex tech hiring across UK, Kenya, Nigeria, Uganda and 6 European countries. Hired and onboarded 40+ Engineers. Achieved 80% candidate NPS against a 65% company target.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <p class="tl-period">May 2022 &mdash; May 2023</p>
+      <h3 class="tl-role">Recruitment Officer</h3>
+      <p class="tl-company">M-KOPA Kenya Limited &middot; Nairobi, Kenya</p>
+      <p class="tl-desc">Managed full recruitment lifecycle for bulk in-market roles across Commercial Sales, Retail, Marketing, Customer Service, Procurement and Logistics. Achieved 70% localization with zero agency cost. Completed the Ignite accelerated leadership programme.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <p class="tl-period">Oct 2021 &mdash; May 2022</p>
+      <h3 class="tl-role">Recruitment Intern</h3>
+      <p class="tl-company">M-KOPA Kenya Limited &middot; Nairobi, Kenya</p>
+      <p class="tl-desc">Sourced candidates across all functions, screened qualifications, coordinated pre-onboarding, and built talent pipeline networks for future opportunities.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <p class="tl-period">May 2019 &mdash; Aug 2019</p>
+      <h3 class="tl-role">Intern</h3>
+      <p class="tl-company">National Construction Authority &middot; Nairobi, Kenya</p>
+      <p class="tl-desc">Registered construction workers into the NCA portal and supported field compliance officers in tracking construction sites.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="reveal">
+    <p class="section-label">Toolkit</p>
+    <h2 class="section-title">Skills &amp;<br><em>Tools</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">ATS &amp; Sourcing</p>
+      <ul class="skill-list">
+        <li>Ashby (Systems Admin)</li>
+        <li>Lever</li>
+        <li>HireEZ</li>
+        <li>LinkedIn Recruiter</li>
+        <li>Dover</li>
+      </ul>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">HRIS &amp; HR Tools</p>
+      <ul class="skill-list">
+        <li>HiBob</li>
+        <li>Appogee</li>
+        <li>Culture Amp</li>
+        <li>DocuSign</li>
+        <li>Dropbox</li>
+      </ul>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">Automation &amp; Ops</p>
+      <ul class="skill-list">
+        <li>Power Automate</li>
+        <li>SharePoint</li>
+        <li>Microsoft 365</li>
+        <li>Microsoft Teams</li>
+      </ul>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">Productivity &amp; AI</p>
+      <ul class="skill-list">
+        <li>Notion (AI / MCP)</li>
+        <li>Asana</li>
+        <li>Slack</li>
+        <li>Grammarly</li>
+        <li>Zoom</li>
+      </ul>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">Languages</p>
+      <ul class="skill-list">
+        <li>English &mdash; Native</li>
+        <li>Kiswahili &mdash; Proficient</li>
+        <li>Portuguese &mdash; Beginner</li>
+      </ul>
+    </div>
+    <div class="skill-category reveal">
+      <p class="skill-cat-title">Certifications</p>
+      <ul class="skill-list">
+        <li>Licensed Talent Advisor</li>
+        <li>Certified LinkedIn Champion</li>
+        <li>Sourcing &amp; Recruiting Analytics</li>
+        <li>MBA &mdash; In Progress</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <p class="section-label reveal">Let's Connect</p>
+  <h2 class="section-title reveal">Get In <em>Touch</em></h2>
+  <div class="section-rule reveal"></div>
+  <p class="contact-sub reveal">Open to conversations about talent strategy, recruitment technology, and pan-African hiring. Always happy to connect with fellow practitioners.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:adamsepp@outlook.com" class="contact-link">&#9993; adamsepp@outlook.com</a>
+    <a href="https://www.linkedin.com/in/adams-oduor" target="_blank" class="contact-link">in linkedin.com/in/adams-oduor</a>
+    <a href="tel:+254795080700" class="contact-link">&#9742; +254 795 080 700</a>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Adams Oduor &mdash; Technology Talent Acquisition Lead</span>
+  <span>Nairobi, Kenya</span>
+</footer>
+
+<script>
+(function() {
+  // Add js-ready to body so reveal animations only activate when JS is running
+  document.body.classList.add('js-ready');
+
+  // ── SCROLL REVEAL ──
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // ── ACTIVE NAV ──
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', function() {
+    var current = '';
+    sections.forEach(function(sec) {
+      if (window.scrollY >= sec.offsetTop - 140) current = sec.id;
+    });
+    navLinks.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+
+})();
+
+</script>
+</body>
+</html>
